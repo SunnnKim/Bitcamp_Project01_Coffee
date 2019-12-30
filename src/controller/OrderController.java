@@ -3,6 +3,7 @@ package controller;
 import java.util.ArrayList;
 
 import dto.MenuDto;
+import dto.OrderDto;
 import service.OrderService;
 import service.impl.OrderServiceImpl;
 import view.OrderView;
@@ -25,6 +26,10 @@ public class OrderController {
 	// 디비에 주문 추가하기
 	public boolean addOrder(String id, int menuNum, String cupSize, String syrup, int shot, int whip, int cups, int total) {
 		return ordService.addOrder(id, menuNum, cupSize, syrup, shot, whip, cups, total);
+	}
+	//
+	public boolean addBucket(OrderDto dto) {
+		return ordService.addBucket(dto);
 	}
 	
 	

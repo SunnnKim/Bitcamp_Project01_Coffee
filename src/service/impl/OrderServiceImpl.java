@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import dao.OrderDao;
 import dao.impl.OrderDaoImpl;
 import dto.MenuDto;
+import dto.OrderDto;
 import service.OrderService;
 
 public class OrderServiceImpl implements OrderService {
@@ -19,6 +20,11 @@ public class OrderServiceImpl implements OrderService {
 	public boolean addOrder(String id, int menuNum, String cupSize, String syrup, int shot, int whip, int cups,
 	        int total) {
 		return dao.addOrder(id, menuNum, cupSize, syrup, shot, whip, cups, total);
+	}
+
+	@Override
+	public boolean addBucket(OrderDto dto) {
+		return dao.addBucket(dto);
 	}
 	
 	

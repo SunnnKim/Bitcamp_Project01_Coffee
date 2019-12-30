@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import dao.OrderDao;
 import db.DBConnection;
 import dto.MenuDto;
+import dto.OrderDto;
+import singleton.Singleton;
 
 public class OrderDaoImpl implements OrderDao {
 /*
@@ -64,13 +66,12 @@ public class OrderDaoImpl implements OrderDao {
 		return list;
 	}
 	// 메뉴 추가하기
-
 	@Override
 	public boolean addOrder(String id, int menuNum, String cupSize, String syrup, int shot, int whip,
 	        int cups, int total) {
 		
-		String sql = " INSERT INTO C_ORDER ( SEQ, ID, MENUNUM, CUPSIZE, SYRUP, SHOT, WHIP, CUPS, TOTAL ) "
-					+" VALUES ( SEQ_ORDER.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ? ) ";
+		String sql = " INSERT INTO C_ORDER ( SEQ, ID, MENUNUM, CUPSIZE, SYRUP, SHOT, WHIP, CUPS, TOTAL, ODATE ) "
+					+" VALUES ( SEQ_ORDER.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE ) ";
 		
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -108,7 +109,16 @@ public class OrderDaoImpl implements OrderDao {
 		return b;
 	
 	}
+	// 장바구니에 추가하기
+	@Override
+	public boolean addBucket(OrderDto dto) {
+		Singleton s = Singleton.getInstance();
+		if(dto!=null) {
+			s.bucketList.add(dto);
+			return true;
+		}
+		return false;
+	}
 	
-
 	
 }

@@ -10,6 +10,7 @@ public class main {
 		s.memCtrl.loginView();
 //		s.ordCtrl.orderView();
 //		new PriceView(s.ordCtrl.getMenu());
+	
 	}
 
 }

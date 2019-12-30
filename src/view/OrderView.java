@@ -21,6 +21,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import dto.MenuDto;
+import dto.OrderDto;
 import singleton.Singleton;
 
 public class OrderView extends JFrame implements ActionListener {
@@ -194,13 +195,14 @@ public class OrderView extends JFrame implements ActionListener {
 				
 			}
 		}
-		// 주문하기
+		// 장바구니에 추가하기
 		if( btn == orderMenu) {
 			if(menuChoice.getSelectedIndex() == 0) {
 				JOptionPane.showMessageDialog(null, "메뉴를 선택해주세요!");
 				return;
 			}
 			int menuNum = menuChoice.getSelectedIndex();
+			String menuName = (String)menuChoice.getSelectedItem();
 			String id = s.loginId;
 			String cupSize = "";
 			String syrup = "";
@@ -208,11 +210,13 @@ public class OrderView extends JFrame implements ActionListener {
 			int whip=0;
 			int cups = Integer.parseInt(cupTxt.getText());
 			int price = s.ordCtrl.getMenu().get(menuNum-1).getPrice();
-			
+			System.out.println("cupTxt.getText():"+cupTxt.getText());
+			System.out.println("cups: "+cups);
+			JRadioButton jb;
 		    Enumeration<AbstractButton> enum1 = groupRd[0].getElements();
 		    while(enum1.hasMoreElements()){ //hasMoreElements() Enum에 더 꺼낼 개체가 있는지
 			    AbstractButton ab = enum1.nextElement();          
-			    JRadioButton jb = (JRadioButton)ab;         
+			    jb = (JRadioButton)ab;         
 			    if(jb.isSelected()) {
 			    	cupSize = jb.getText();
 			    	if(cupSize.equals("Tall")) {
@@ -228,7 +232,7 @@ public class OrderView extends JFrame implements ActionListener {
 			Enumeration<AbstractButton> enum2 = groupRd[1].getElements();
 			while(enum2.hasMoreElements()){ //hasMoreElements() Enum에 더 꺼낼 개체가 있는지
 			    AbstractButton ab = enum2.nextElement();          
-			    JRadioButton jb = (JRadioButton)ab;         
+			    jb = (JRadioButton)ab;         
 			    if(jb.isSelected()) {
 			    	syrup = jb.getText();
 					
@@ -249,19 +253,41 @@ public class OrderView extends JFrame implements ActionListener {
 					+" 사이즈 : " + cupSize + "\n";
 			str += " 시럽 : " + syrup+"\n"
 					+ " 추가 샷 : " + shot + "\n" + " 휘핑크림 추가 : " + whip + "\n"+
-					 " 총 : " + whip + " 잔\n"
+					 " 총 : " + cups + " 잔\n"
 					+ " Total : " + total;
-			int result = JOptionPane.showConfirmDialog(null, str);
-			System.out.println("menuNum: " + menuNum);
+		int result = JOptionPane.showConfirmDialog(null, str);
 		if(result == JOptionPane.YES_NO_OPTION) {
-			boolean b = s.ordCtrl.addOrder(id, menuNum, cupSize, syrup, shot, whip, cups, total);
+			OrderDto dto = new OrderDto();
+			dto.setSequence(s.bucketList.size()+1);
+			dto.setId(id);
+			dto.setMenuNum(menuNum);
+			dto.setMenuName(menuName);
+			dto.setCupSize(cupSize);
+			dto.setSyrup(syrup);
+			dto.setShot(shot);
+			dto.setWhip(whip);
+			dto.setCups(cups);
+			dto.setTotalPrice(total);
+			dto.setoDate("");
+			
+			boolean b = s.ordCtrl.addBucket(dto);
+			
+//			boolean b = s.ordCtrl.addOrder(id, menuNum, cupSize, syrup, shot, whip, cups, total);
 			if(b) JOptionPane.showMessageDialog(null, "메뉴 추가완료");
 			else JOptionPane.showMessageDialog(null, "실패!");
+			menuChoice.setSelectedIndex(0);
+			cupTxt.setText("1");
+			
+			
 		}
 	}
 		if(btn  == ordHistory) {
 			// 현재까지 주문내역 보기 
 			
+		}
+		if(btn == showBasket) {
+			// 장바구니 보기
+			new BucketView();
 		}
 
 }}

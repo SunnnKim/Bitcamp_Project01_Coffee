@@ -1,8 +1,11 @@
 package singleton;
 
+import java.util.ArrayList;
+
 import controller.MemberController;
 import controller.OrderController;
 import dto.MemberDto;
+import dto.OrderDto;
 import view.PriceView;
 
 public class Singleton {
@@ -12,6 +15,7 @@ public class Singleton {
 	public OrderController ordCtrl = null;
 	public MemberDto loginDto = null;
 	public String loginId;
+	public ArrayList<OrderDto> bucketList;		//
 	
 	// 메뉴창 닫기/열기
 	public PriceView pv;
@@ -31,7 +35,7 @@ public class Singleton {
 	private Singleton() {
 		memCtrl = new MemberController();
 		ordCtrl = new OrderController();
-		
+		bucketList = new ArrayList<OrderDto>();
 	}
 	public static Singleton getInstance() {
 		if(s == null ) s = new Singleton();

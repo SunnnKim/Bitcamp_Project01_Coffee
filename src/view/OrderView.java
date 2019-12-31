@@ -119,10 +119,11 @@ public class OrderView extends JFrame implements ActionListener {
 		addOption[1].setBackground(Color.white);
 		
 		groupRd = new ButtonGroup[2];
+		opButton = new JRadioButton[2][3];
 		// 라디오 버튼 추가하기
 		for (int i = 0; i < 2; i++) {
-			opButton = new JRadioButton[3][opNum[i]];
 			groupRd[i] = new ButtonGroup();
+			if(i==1) opButton[i] = new JRadioButton[4];
 			for (int j = 0; j < opButton[i].length; j++) {
 				opButton[i][j] = new JRadioButton(opbtnStr[i][j]);
 				opButton[i][j].setSelected(true);
@@ -212,32 +213,26 @@ public class OrderView extends JFrame implements ActionListener {
 			int price = s.ordCtrl.getMenu().get(menuNum-1).getPrice();
 			System.out.println("cupTxt.getText():"+cupTxt.getText());
 			System.out.println("cups: "+cups);
-			JRadioButton jb;
-		    Enumeration<AbstractButton> enum1 = groupRd[0].getElements();
-		    while(enum1.hasMoreElements()){ //hasMoreElements() Enum에 더 꺼낼 개체가 있는지
-			    AbstractButton ab = enum1.nextElement();          
-			    jb = (JRadioButton)ab;         
-			    if(jb.isSelected()) {
-			    	cupSize = jb.getText();
-			    	if(cupSize.equals("Tall")) {
+			for (int i = 0; i < opButton[0].length; i++) {
+				if(opButton[0][i].isSelected()) {
+					cupSize = opButton[0][i].getText();
+					if(cupSize.equals("Tall")) {
 			    		price += 500;
 			    	}
 			    	else if(cupSize.equals("Grande")) {
 			    		price += 1000;
 			    	}
-			    }
-		    }
-		   
-			
-			Enumeration<AbstractButton> enum2 = groupRd[1].getElements();
-			while(enum2.hasMoreElements()){ //hasMoreElements() Enum에 더 꺼낼 개체가 있는지
-			    AbstractButton ab = enum2.nextElement();          
-			    jb = (JRadioButton)ab;         
-			    if(jb.isSelected()) {
-			    	syrup = jb.getText();
-					
-			    }
+				}
 			}
+			
+			for (int i = 0; i < opButton[1].length; i++) {
+				if(opButton[1][i].isSelected()) {
+					syrup = opButton[1][i].getText();
+				}
+			}
+			
+			
+			
 			// 샷추가 여부 
 			if(addOption[0].isSelected()) {
 				shot++;
@@ -260,7 +255,6 @@ public class OrderView extends JFrame implements ActionListener {
 			OrderDto dto = new OrderDto();
 			dto.setSequence(s.bucketList.size()+1);
 			dto.setId(id);
-			dto.setMenuNum(menuNum);
 			dto.setMenuName(menuName);
 			dto.setCupSize(cupSize);
 			dto.setSyrup(syrup);
@@ -271,23 +265,26 @@ public class OrderView extends JFrame implements ActionListener {
 			dto.setoDate("");
 			
 			boolean b = s.ordCtrl.addBucket(dto);
-			
-//			boolean b = s.ordCtrl.addOrder(id, menuNum, cupSize, syrup, shot, whip, cups, total);
 			if(b) JOptionPane.showMessageDialog(null, "메뉴 추가완료");
 			else JOptionPane.showMessageDialog(null, "실패!");
+			// 초기화부분 
 			menuChoice.setSelectedIndex(0);
+			addOption[0].setSelected(false);			
+			addOption[1].setSelected(false);			
 			cupTxt.setText("1");
-			
-			
+			opButton[0][0].setSelected(true);
+			opButton[1][0].setSelected(true);
 		}
 	}
 		if(btn  == ordHistory) {
 			// 현재까지 주문내역 보기 
-			
+			s.ordCtrl.HistoryView();
+			dispose();
 		}
 		if(btn == showBasket) {
 			// 장바구니 보기
-			new BucketView();
+			s.ordCtrl.bucketView();
+			dispose();
 		}
 
 }}

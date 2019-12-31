@@ -17,14 +17,28 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public boolean addOrder(String id, int menuNum, String cupSize, String syrup, int shot, int whip, int cups,
-	        int total) {
-		return dao.addOrder(id, menuNum, cupSize, syrup, shot, whip, cups, total);
+	public boolean addOrder(OrderDto dto) {
+		return dao.addOrder(dto);
 	}
 
 	@Override
 	public boolean addBucket(OrderDto dto) {
 		return dao.addBucket(dto);
+	}
+
+	@Override
+	public void bucketView() {
+		dao.bucketView();
+	}
+
+	@Override
+	public void HistoryView() {
+		dao.HistoryView();
+	}
+
+	@Override
+	public ArrayList<OrderDto> getAllOrder(String id) {
+		return dao.getAllOrder(id);
 	}
 	
 	

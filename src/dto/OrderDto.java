@@ -3,22 +3,22 @@ package dto;
 public class OrderDto {
 	// 있어야 하는 것
 	/*
-	 CREATE TABLE C_ORDER(
+	CREATE TABLE C_ORDER(
 		SEQ NUMBER(8) PRIMARY KEY,
 		ID VARCHAR2(50) NOT NULL,
-		MENUNUM NUMBER(8) NOT NULL,
+	    MENUNAME VARCHAR2(500)NOT NULL,
 		CUPSIZE VARCHAR2(50) NOT NULL,
-		SYRUP NUMBER(8),
+		SYRUP VARCHAR2(50),
 		SHOT NUMBER(8),
-		WHIP VARCHAR(10),
+		WHIP NUMBER(8),
 		CUPS NUMBER(8) NOT NULL,
-		TOTAL NUMBER(20) NOT NULL
-);
+		TOTAL NUMBER(20) NOT NULL,
+	    ODATE DATE NOT NULL
+	);
 	 */
 	
 	private int sequence;		// 주문번호
 	private String id;			// 주문아이디
-	private int menuNum;		// 주문한 메뉴번호 - 외래키
 	private String menuName;		// 주문한 메뉴번호 - 외래키
 	private String cupSize;		// 사이즈
 	private String syrup;			// 시럽추가 몇개
@@ -35,12 +35,11 @@ public class OrderDto {
 	}
 	
 	
-	public OrderDto(int sequence, String id, int menuNum, String menuName, String cupSize, String syrup, int shot,
+	public OrderDto(int sequence, String id, String menuName, String cupSize, String syrup, int shot,
 			int whip, int cups, int totalPrice, String oDate) {
 		super();
 		this.sequence = sequence;
 		this.id = id;
-		this.menuNum = menuNum;
 		this.menuName = menuName;
 		this.cupSize = cupSize;
 		this.syrup = syrup;
@@ -66,12 +65,6 @@ public class OrderDto {
 	}
 	public void setId(String id) {
 		this.id = id;
-	}
-	public int getMenuNum() {
-		return menuNum;
-	}
-	public void setMenuNum(int menuNum) {
-		this.menuNum = menuNum;
 	}
 	public String getCupSize() {
 		return cupSize;
@@ -131,7 +124,7 @@ public class OrderDto {
 
 	@Override
 	public String toString() {
-		return "OrderDto [sequence=" + sequence + ", id=" + id + ", menuNum=" + menuNum + ", menuName=" + menuName
+		return "OrderDto [sequence=" + sequence + ", id=" + id  + ", menuName=" + menuName
 				+ ", cupSize=" + cupSize + ", syrup=" + syrup + ", shot=" + shot + ", whip=" + whip + ", cups=" + cups
 				+ ", totalPrice=" + totalPrice + ", oDate=" + oDate + "]";
 	}

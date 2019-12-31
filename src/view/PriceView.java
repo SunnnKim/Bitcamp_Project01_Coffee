@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.peer.PanelPeer;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -94,7 +93,7 @@ public class PriceView extends JFrame implements ActionListener {
 		
 		
 		setVisible(false);
-		setBounds(800, 230, 640, 400);
+		setBounds(850, 200, 640, 400);
 //		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 	

@@ -6,9 +6,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Enumeration;
 
-import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -95,7 +93,6 @@ public class OrderView extends JFrame implements ActionListener {
 		opLabel = new JLabel[3];
 		
 		String opStr[] = {" 사 이 즈", " 시 럽", " 기 타"};
-		int opNum[] = { 3,4,2 };
 		for (int i = 0; i < option.length; i++) {
 			option[i] = new JPanel();
 			option[i].setBounds(30+(i*200),100, 180, 200);
@@ -140,14 +137,47 @@ public class OrderView extends JFrame implements ActionListener {
 		option[2].add(addOption[1]);
 		
 		
+		
 		// 잔 수 
 		cupTxt = new JTextField("1");
 		cupTxt.setHorizontalAlignment(JTextField.CENTER);
+		cupTxt.setEditable(false);
 		cupTxt.setBounds(350, 320, 35, 30);
 		frame.add(cupTxt);
 		cupsLab = new JLabel("잔");
 		cupsLab.setBounds(390, 320, 30, 30);
 		frame.add(cupsLab);
+		
+		// + 
+		JButton plus = new JButton("+");
+		plus.setBounds(250, 320, 40, 30);
+		plus.setFont(new Font("null", Font.BOLD,10));		
+		frame.add(plus);
+		plus.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int a = Integer.parseInt(cupTxt.getText());
+				a++;
+				cupTxt.setText(a+"");
+			}
+		});
+		// - 
+		JButton minus = new JButton("-");
+		minus.setBounds(300, 320, 40, 30);
+		minus.setFont(new Font("null", Font.BOLD,12));		
+		frame.add(minus);
+		minus.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			if(!cupTxt.getText().equals("0")) {
+					int a = Integer.parseInt(cupTxt.getText());
+					a--;
+					cupTxt.setText(a+"");
+			}}}
+		);
+		
 		
 		
 		// 주문하기 버튼
@@ -167,14 +197,30 @@ public class OrderView extends JFrame implements ActionListener {
 		orderMenu.setBounds(540, 320, 70, 30);
 		orderMenu.addActionListener(this);
 		frame.add(orderMenu);
-	
 		
 		
+		// 로그아웃
+		JButton logout = new JButton("Logout");
+		logout.setBounds(510,20,100,20);
+		frame.add(logout);
+		logout.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int result = JOptionPane.showConfirmDialog(null, "로그아웃 하시겠습니까?","logout",JOptionPane.WARNING_MESSAGE);
+				if(result == JOptionPane.YES_OPTION) {
+					s.setLoginDto(null);
+					 s.memCtrl.loginView();
+					 dispose();
+				}
+			
+			}
+		});
 		
 		
 		
 		setVisible(true);
-		setBounds(300, 100, 650, 420);
+		setBounds(200, 200, 650, 420);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 	}
@@ -232,8 +278,6 @@ public class OrderView extends JFrame implements ActionListener {
 				}
 			}
 			
-			
-			
 			// 샷추가 여부 
 			if(addOption[0].isSelected()) {
 				shot++;
@@ -280,13 +324,14 @@ public class OrderView extends JFrame implements ActionListener {
 	}
 		if(btn  == ordHistory) {
 			// 현재까지 주문내역 보기 
-			s.pv.dispose();
+			if(openMenu) s.pv.dispose();
 			s.ordCtrl.HistoryView();
 			dispose();
 		}
 		if(btn == showBasket) {
 			// 장바구니 보기
-			s.pv.dispose();
+			if(openMenu) s.pv.dispose();
+			
 			s.ordCtrl.bucketView();
 			dispose();
 		}

@@ -5,8 +5,6 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.DefaultCellEditor;
@@ -150,11 +148,10 @@ public class BucketView extends JFrame implements ActionListener {
 		frame.add(delete);
 		
 		setVisible(true);
-		setBounds(800, 230, 640, 400);
+		setBounds(350, 200, 640, 400);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 	}
-	
 	DefaultTableCellRenderer dcr = new DefaultTableCellRenderer()
 	 {
 	  public Component getTableCellRendererComponent  // 셀렌더러
@@ -182,6 +179,7 @@ public class BucketView extends JFrame implements ActionListener {
 			if( list.size() == 0) {
 				// 장바구니 내역이 없을 때
 				JOptionPane.showMessageDialog(null, "추가한 주문이 없습니다.","Error",JOptionPane.PLAIN_MESSAGE);
+				return;
 			}
 			
 			// 체크한 것 주문하기

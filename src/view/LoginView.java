@@ -61,7 +61,7 @@ public class LoginView extends Frame implements WindowListener, ActionListener {
 		
 		
 		
-		setBounds(400, 100, 400, 300);
+		setBounds(400, 200, 400, 300);
 		setVisible(true);
 		addWindowListener(this);
 		setBackground(Color.WHITE);

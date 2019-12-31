@@ -98,7 +98,7 @@ public class HistoryView extends JFrame implements ActionListener {
 		
 		
 		setVisible(true);
-		setBounds(800, 230, 640, 400);
+		setBounds(350, 200, 640, 400);
 	}
 	
 	

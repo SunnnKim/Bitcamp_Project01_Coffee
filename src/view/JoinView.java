@@ -88,7 +88,7 @@ public class JoinView extends Frame implements WindowListener, ActionListener{
 		
 		
 		
-		setBounds(350, 100, 500, 540);
+		setBounds(400, 100, 500, 540);
 		setVisible(true);
 		addWindowListener(this);
 		

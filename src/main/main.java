@@ -8,8 +8,6 @@ public class main {
 		DBConnection.initConnection();
 		Singleton s = Singleton.getInstance();
 		s.memCtrl.loginView();
-//		s.ordCtrl.orderView();
-//		new PriceView(s.ordCtrl.getMenu());
 	
 	}
 

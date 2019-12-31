@@ -154,6 +154,7 @@ public class BucketView extends JFrame implements ActionListener {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 	}
+	
 	DefaultTableCellRenderer dcr = new DefaultTableCellRenderer()
 	 {
 	  public Component getTableCellRendererComponent  // 셀렌더러

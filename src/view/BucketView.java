@@ -63,7 +63,7 @@ public class BucketView extends JFrame implements ActionListener {
 		this.list = s.bucketList;
 		rowData = new Object[list.size()][8];
 
-
+		
 		// list에서 테이블로 데이터를 삽입하기 위한 처리
 		
 		for (int i = 0; i < list.size(); i++) {
@@ -123,7 +123,7 @@ public class BucketView extends JFrame implements ActionListener {
 		DefaultTableCellRenderer dcr2 = new DefaultTableCellRenderer();
 		dcr2.setHorizontalAlignment(SwingConstants.RIGHT);
 		TableColumnModel tcm = jtable.getColumnModel();
-		for (int j = 0; j < columnNames.length-1; j++) {
+		for (int j = 1; j < columnNames.length-1; j++) {
 			tcm.getColumn(j).setCellRenderer(dcr2);
 		}
 
@@ -194,15 +194,17 @@ public class BucketView extends JFrame implements ActionListener {
 			if(result == JOptionPane.YES_OPTION) {
 				OrderDto dto;
 				// 주문한 것만 장바구니에서 삭제하기
+				int w=0;
 				for (int i = 0; i < jtable.getRowCount(); i++) {
 				     Boolean isChecked = Boolean.valueOf(jtable.getValueAt(i, 7).toString());
 				     if (isChecked) {
-				    	dto = list.get(i);
+				    	dto = list.get(w);
 						s.ordCtrl.addOrder(dto);
-						s.bucketList.remove(i);
+						s.bucketList.remove(w);
+						w--;
 				    }
+				     w++;
 				}
-				
 				JOptionPane.showMessageDialog(null, "주문을 완료했습니다!","success",JOptionPane.PLAIN_MESSAGE);
 				s.ordCtrl.orderView();
 				dispose();
@@ -220,12 +222,14 @@ public class BucketView extends JFrame implements ActionListener {
 			if(result == JOptionPane.NO_OPTION) {
 				return;
 			}
-				 
+				int w =0;
 				for (int i = 0; i < jtable.getRowCount(); i++) {
 				     Boolean isChecked = Boolean.valueOf(jtable.getValueAt(i, 7).toString());
 				     if (isChecked) {
-				    	 s.bucketList.remove(i);
+				    	 s.bucketList.remove(w);
+				    	 w--;
 				    }
+				     w++;
 				}
 			JOptionPane.showMessageDialog(null, "삭제했습니다!","success",JOptionPane.PLAIN_MESSAGE);
 			dispose();

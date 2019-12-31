@@ -217,8 +217,10 @@ public class BucketView extends JFrame implements ActionListener {
 				JOptionPane.showMessageDialog(null, "삭제할 주문을 선택하세요!","Error",JOptionPane.PLAIN_MESSAGE);
 				return;
 			}
-			int result = JOptionPane.showConfirmDialog(null, "선택한 "+orderCount+"건을 주문하시겠습니까?","order",JOptionPane.YES_NO_OPTION);
-			if(result == JOptionPane.YES_OPTION) {
+			int result = JOptionPane.showConfirmDialog(null, "선택한 "+orderCount+"건을 삭제하시겠습니까?","order",JOptionPane.YES_NO_OPTION);
+			if(result == JOptionPane.NO_OPTION) {
+				return;
+			}
 				 
 				for (int i = 0; i < jtable.getRowCount(); i++) {
 				     Boolean isChecked = Boolean.valueOf(jtable.getValueAt(i, 7).toString());
@@ -226,11 +228,9 @@ public class BucketView extends JFrame implements ActionListener {
 				    	 s.bucketList.remove(i);
 				    }
 				}
-			}
 			JOptionPane.showMessageDialog(null, "삭제했습니다!","success",JOptionPane.PLAIN_MESSAGE);
 			dispose();
 			s.ordCtrl.bucketView();
-		
 		}
 	}
 	

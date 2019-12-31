@@ -182,10 +182,11 @@ public class OrderView extends JFrame implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
 		JButton btn = (JButton)e.getSource();
 		if( btn == showMenu) {
 			if(openMenu) { // 창 닫기
-				s.pv.setVisible(false);
+				s.pv.dispose();
 				openMenu = false;
 				showMenu.setText("메뉴보기");
 			}
@@ -274,15 +275,18 @@ public class OrderView extends JFrame implements ActionListener {
 			cupTxt.setText("1");
 			opButton[0][0].setSelected(true);
 			opButton[1][0].setSelected(true);
+			s.priceView(false);
 		}
 	}
 		if(btn  == ordHistory) {
 			// 현재까지 주문내역 보기 
+			s.pv.dispose();
 			s.ordCtrl.HistoryView();
 			dispose();
 		}
 		if(btn == showBasket) {
 			// 장바구니 보기
+			s.pv.dispose();
 			s.ordCtrl.bucketView();
 			dispose();
 		}

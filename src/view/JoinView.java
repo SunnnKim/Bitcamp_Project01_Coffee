@@ -19,7 +19,7 @@ import dto.MemberDto;
 import singleton.Singleton;
 
 public class JoinView extends Frame implements WindowListener, ActionListener{
-	JButton joinBtn;
+	JButton joinBtn, back;
 	JButton checkId;
 	TextField txt[];
 	
@@ -76,13 +76,19 @@ public class JoinView extends Frame implements WindowListener, ActionListener{
 		
 		
 		joinBtn = new JButton("회 원 가 입 ");
-		joinBtn.setBounds(150, 10, 180, 50);
+		joinBtn.setBounds(280, 10, 100, 50);
 		joinBtn.addActionListener(this);
 		p[5].add(joinBtn);
+
+		back = new JButton("뒤로가기");
+		back.setBounds(130, 10, 100, 50);
+		back.addActionListener(this);
+		p[5].add(back);
 	
 		
 		
-		setBounds(100, 100, 500, 540);
+		
+		setBounds(350, 100, 500, 540);
 		setVisible(true);
 		addWindowListener(this);
 		
@@ -138,6 +144,12 @@ public class JoinView extends Frame implements WindowListener, ActionListener{
 		
 		// 싱글턴 생성 
 		Singleton s = Singleton.getInstance();
+		
+		if(nowBtn == back) {
+			s.memCtrl.loginView();
+			dispose();
+		}
+		
 		// 회원가입
 		if(nowBtn ==  joinBtn) {
 			// 빈칸있는지 확인하기 
